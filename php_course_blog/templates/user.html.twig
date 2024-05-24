@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block user_info %}
+    <h2> FirstName:  {{user.getFirstName}}</h2>
+    <h2> Last Name: {{user.getLastName}}</h2>
+    <h2> Middle Name: {{user.getMiddleName}}</h2>
+    <h2> Birth Date: {{user.getBirthDate}}</h2>
+    <h2> Gender: {{user.getGender}}</h2>
+    <h2> Email: {{user.getEmail}}</h2>
+    <h2> Phone: {{user.getPhone}}</h2>
+    {% if user.getAvataPath() %}
+        <h2> Image: <img src="/assets/{{user.getAvataPath}}"></h2>
+    {% endif %}
+{% endblock %}
+{% block delete_block %}
+    <form action="/user/delete" method='POST'>
+        <div>
+            Удалить пользователя:
+            <input type="hidden" name="user_id" id="user_id" value="{{user.getUserId}}">
+        </div>
+        <button type="submit">Delete</button>
+    </form>
+{% endblock %}
+{% block form %}
+    {% include 'form.html.twig' with {'action': 'update', 'id': user.getUserId} %}
+{% endblock %}

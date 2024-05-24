@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  php-course-app:
+    container_name: php-course-app
+    build: $PWD/docker/image
+    command:
+      - /var/www/docker/docker-entrypoint
+    environment:
+      # Параметры приложения
+      - APP_ENV=dev
+      - APP_DATABASE_DSN=mysql:dbname=php_course;host=php-course-db
+      - APP_DATABASE_USER=php-course-app
+      - APP_DATABASE_PASSWORD=gX5t2UUbBn
+      # Параметры скрипта docker-entrypoint
+      - USER_ID=${USER_ID:-1000}
+      - USER_NAME=$USER
+      # Параметры расширения XDebug
+      - XDEBUG_MODE=debug
+      - XDEBUG_CONFIG="idekey=123"
+      - PHP_IDE_CONFIG=serverName=localhost
+    working_dir: /var/www
+    volumes:
+      - $PWD/:/var/www
+    depends_on:
+      - php-course-db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  php-course-nginx:
+    image: nginx:1.17
+    container_name: php-course-nginx
+    working_dir: /var/www
+    volumes:
+      - $PWD/:/var/www
+      - $PWD/docker/config/nginx.conf.d/:/etc/nginx/conf.d/:ro
+    depends_on:
+      - php-course-app
+    ports:
+      - "127.0.0.1:80:80"
+
+  php-course-db:
+    image: mysql:8.0.32
+    container_name: php-course-db
+    hostname: php-course-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=J8lzl2NnWX
+      - MYSQL_USER=php-course-app
+      - MYSQL_PASSWORD=gX5t2UUbBn
+      - MYSQL_DATABASE=php_course
+    volumes:
+      - $PWD/docker/config/mysql.conf.d:/etc/mysql/conf.d/:ro
+      - php_course_db_data:/var/lib/mysql
+    ports:
+      - "127.0.0.1:3306:3306"
+
+###> doctrine/doctrine-bundle ###
+  database:
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+###< doctrine/doctrine-bundle ###
+
+volumes:
+  php_course_db_data:
+
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###

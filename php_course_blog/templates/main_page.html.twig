@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+{% block title %}Users{% endblock %}
+{% block head %}
+   {{ parent() }}
+   <style type="text/css">
+       li {
+           color: #00FF00;
+       }
+   </style>
+{% endblock %}
+{% block form %}
+    {% include 'form.html.twig' with {'action': 'register', 'id': -1} %}
+{% endblock %}
+{% block content %}
+    {% include 'list.html.twig' with users_list %}
+{% endblock %}
+{% block find_user_by_id %}
+    {% include 'find_user_by_id.html.twig' %}      
+{% endblock %}

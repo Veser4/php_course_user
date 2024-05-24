@@ -1,0 +1,32 @@
+index:
+    path: /
+    controller: App\Controller\UserController::index
+    methods: GET
+
+add_user:
+    path: /user/register
+    controller: App\Controller\UserController::registerUser
+    methods: POST
+
+show_user:
+    path: /user/{user_id}
+    controller: App\Controller\UserController::showUser
+    methods: GET
+
+delete_user:
+    path: /user/delete
+    controller: App\Controller\UserController::deleteUser
+    methods: POST
+
+update_user:
+    path: /user/update
+    controller: App\Controller\UserController::updateUser
+    methods: POST
+
+found_user:
+    path: /user/find
+    controller: App\Controller\UserController::showUser
+    methods: POST
+
+
+

@@ -1,0 +1,35 @@
+.add-post-form {
+    width: 800px;
+    margin: auto auto;
+    font-size: 18px;
+}
+
+.add-post-form input[type=text] {
+    width: 200px;
+    font-size: 18px;
+}
+
+.add-post-form textarea {
+    font-size: 18px;
+    display: block;
+    width: 800px;
+    height: 400px;
+    resize: vertical;
+}
+
+.add-post-form label {
+    display: inline-block;
+    width: 120px;
+    min-width: 120px;
+}
+
+.add-post-form label[for=content] {
+    margin: 10px 0 10px 0;
+}
+
+.add-post-form button {
+    font-size: 18px;
+    float: right;
+    padding: 4px 12px;
+    margin: 10px 0;
+}

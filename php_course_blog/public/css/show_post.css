@@ -1,0 +1,10 @@
+.post-content
+{
+    width: 800px;
+    margin: auto auto;
+}
+
+.post-content p
+{
+font-size: 18px;
+}

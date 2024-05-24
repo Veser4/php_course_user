@@ -1,0 +1,6 @@
+<h1>Count of posts {{ users_list|length }}!</h1>
+<ul>
+   {% for user in users_list %}
+       {% include 'list_item_user.html.twig' with user %}
+   {% endfor %}
+</ul>

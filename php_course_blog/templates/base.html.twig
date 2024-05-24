@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <link rel="stylesheet" href="style.css"/>
+        <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+{% block user_info %}{% endblock %}
+{% block form %}{% endblock %}
+{% block find_user_by_id %}{% endblock %}
+<div id="content">{% block content %}{% endblock %}</div>
+{% block delete_block %}{% endblock %}
+</body>
+</html>
